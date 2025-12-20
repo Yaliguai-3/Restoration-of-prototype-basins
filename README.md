@@ -16,7 +16,7 @@ This project involves a 2D lithospheric flexural model constrained by stratigrap
 The modeling process consists of four main modules:
 本模型主要包含以下四个核心步骤：
 
-### 1. Decompaction Correction (去压实矫正)
+### 1. Decompaction(去压实矫正)
 * **Description:** Restores the original thickness of sedimentary layers by removing the compaction effect based on lithological parameters.
 * **说明**：基于岩性参数去除压实效应，恢复沉积层的原始厚度。
 
