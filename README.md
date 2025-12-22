@@ -4,46 +4,84 @@
 ## Introduction (项目介绍)
 
 **English:**
-This project involves a 2D lithospheric flexural model constrained by stratigraphy and orogenic loads. It is implemented in **MATLAB** and is designed to quantitatively reveal the prototype structure of the basin and its formation mechanism.
+This project implements a 2D lithospheric flexural model constrained by stratigraphy and orogenic loads. Developed in **MATLAB**, it is designed to quantitatively reconstruct the prototype structure of a basin and reveal its geodynamic formation mechanism.
 
 **中文:**
-这是一个基于 **MATLAB** 实现的、受地层和造山运动约束的二维岩石圈挠曲模型。项目旨在通过定量模拟手段，揭示盆地的原始结构及其形成机制。
+这是一个基于 **MATLAB** 实现的、受地层和造山运动约束的二维岩石圈挠曲模型。项目旨在通过定量模拟手段，揭示盆地的原始结构及其动力学形成机制。
 
 ---
 
 ## Workflow & Features (流程与功能)
 
-The modeling process consists of four main modules:
-本模型主要包含以下四个核心步骤：
+The modeling process consists of five main modules. Below are the details for methodology and usage.
+本模型主要包含以下五个核心步骤，下文详细说明了方法原理与使用方式。
 
-### 1. Decompaction(去压实矫正)
-* **Description:** Restores the original thickness of sedimentary layers by removing the compaction effect based on lithological parameters.
-* **说明**：基于岩性参数去除压实效应，恢复沉积层的原始厚度。
-* **用法**：使用input_data.xlsx输入数据，示例用了4口井，三套地层，和地层对应的现今厚度孔隙度和密度参数。结果会通过“output_result.xlsx”输出，并且会将每一层的去压实量展示出来。
+### 1. Decompaction Correction (去压实矫正)
+* **Description / 原理**:
+    Restores the original thickness of sedimentary layers by removing the compaction effect based on lithological parameters (porosity, density).
+    基于岩性参数（孔隙度、密度）去除压实效应，恢复沉积层的原始厚度。
+
+* **Usage / 用法**:
+    * **Input**: `input_data.xlsx`
+        * Format: Includes data for 4 wells and 3 stratigraphic layers, containing current thickness, porosity, and density parameters.
+        * 格式：包含4口井、三套地层的数据，需输入现今地层厚度、孔隙度和密度参数。
+    * **Output**: `output_result.xlsx`
+        * Contains the calculated decompacted thickness for each layer.
+        * 输出每一层的去压实量及恢复后的厚度。
 
 ### 2. Control Point Calculation (控制点位置计算)
-* **Description:** Simulates basin geometries under different lithospheric flexural rigidities.
-    * **Method:** We utilize **drilling/well locations** as spatial control points.
-    * **Data:** Each control point contains coordinate information and the decompacted stratigraphic thickness derived from the previous step.
-* **说明**：推算不同岩石圈挠曲刚度下的盆地形态。
-   采用**钻井位置**作为空间上的控制点。
-   每个控制点包含空间坐标以及经过去压实矫正后的地层厚度信息。
-  * **用法**：使用input_Control_Points.xlsx输入数据，示例展示了4口作为控制点的井以及沉积中心的空间位置，并且将它们代入现今Te下的空间位置，按示例的格式代码会自动计算Te从50-65且去缩短量从0-10%的值。
-    结果通过“Output_Calculated_Points.xlsx”输出，输出的结果并未通过整数形式输出。
+* **Description / 原理**:
+    Calculates the spatial position of basin geometries under different lithospheric flexural rigidities ($T_e$). It utilizes **drilling/well locations** as spatial control points, incorporating coordinates and decompacted thickness.
+    推算不同岩石圈挠曲刚度（$T_e$）下的盆地形态。采用**钻井位置**作为空间控制点，结合坐标与去压实后的地层厚度信息进行计算。
+
+* **Usage / 用法**:
+    * **Input**: `input_Control_Points.xlsx`
+        * Format: Includes the spatial locations of 4 control wells and the depocenter.
+        * Operation: The code substitutes these into current spatial positions based on $T_e$. It automatically iterates through a $T_e$ range of **50-65 km** and a shortening rate range of **0-10%**.
+        * 格式：包含4口控制井及沉积中心的空间位置。代码会自动计算 $T_e$ 在 50-65 km 以及缩短率在 0-10% 范围内的数值。
+    * **Output**: `Output_Calculated_Points.xlsx`
+        * Results are output in floating-point format (non-integer) for precision.
+        * 结果以浮点数形式（非整数）输出以保留精度。
 
 ### 3. 2D Flexural Simulation (二维挠曲模拟)
-* **Description:** Performs numerical simulation of lithospheric deflection under vertical loading based on the elastic plate theory.
-* **说明**：基于弹性板理论，对垂直负载下的岩石圈弯曲进行数值模拟。
-* **用法**：使用input.xlsx输入数据，只用输入D（即对应的Te）和加载量，通过这样的形式实现对网格化数据的批量处理。
-* **代码改自**：Jha, S., Harry, D.L., and Schutt, D.L., 2017, Toolbox for Analysis of Flexural Isostasy (TAFI)—A MATLAB toolbox for modeling flexural deformation of the lithosphere: Geosphere, v. 13, no. 5, p. 1555–1565, doi:10.1130/GES01421.1.
+* **Description / 原理**:
+    Performs numerical simulation of lithospheric deflection under vertical loading based on the elastic plate theory.
+    基于弹性板理论，对垂直负载下的岩石圈弯曲进行数值模拟。
+
+* **Code Reference / 代码来源**:
+    * *Modified from*: **Jha, S., Harry, D.L., and Schutt, D.L., 2017**, "Toolbox for Analysis of Flexural Isostasy (TAFI)—A MATLAB toolbox for modeling flexural deformation of the lithosphere", *Geosphere*, v. 13, no. 5, p. 1555–1565, doi:10.1130/GES01421.1.
+
+* **Usage / 用法**:
+    * **Input**: `input.xlsx`
+        * Format: Requires only the Flexural Rigidity ($D$, corresponding to $T_e$) and Load Magnitude. This format allows for batch processing of gridded data.
+        * 格式：仅需输入挠曲刚度 $D$（对应 $T_e$）和加载量。通过这种形式实现对网格化数据的批量处理。
 
 ### 4. Goodness-of-Fit Calculation (拟合度计算)
-* **Description:** Evaluates the accuracy of the model by comparing the simulated deflection with observed data.
-    * **Metric:** The goodness of fit is calculated using **`1 - RMSE`** (Root Mean Square Error).
-* **说明**：通过对比模拟弯曲量与观测数据来评估模型精度。
-   采用 **`1 - RMSE`**（1减去均方根误差）作为拟合优度的评价标准。
-* **用法**：包含三个输入表格。第一个是控制点位置表格：Corrected_Control_Points.xlsx，其是从2. Control Point Calculation得来的；第二个表格是：Model_Calculation_Data.xlsx，它通过不同Sheet包含不同的Te信息，每一个单独的Sheet中第A列都是D其下一行对应其数值，再往下是对应的X轴点位，以整数形式展示，B列之后则是负载量，同样第二行是其数值，再往下是空间挠曲量（Y轴数值）；第三个表是：Uplift_Flexure_Params.xlsx，它展示的是Te、负载量N以及二者联合解析出来的原点向下挠曲量Wmax和H造山带的隆升高度。
+* **Description / 原理**:
+    Evaluates the model accuracy by comparing the simulated deflection with observed control points. The metric used is **`1 - RMSE`** (Root Mean Square Error).
+    通过对比模拟弯曲量与观测数据（控制点）来评估模型精度。采用 **`1 - RMSE`** 作为拟合优度的评价标准。
 
-### 5. Scatter diagram (结果可视化)
-* **描述:**将最优GOF结果直观展示出来
-* * **用法**：按照Te分为不同Sheet，参照示例，在每一个Sheet中分别输入Te、缩短率、加载量、最大挠曲量、造山带古高度以及GOF
+* **Usage / 用法**:
+    This module requires three input files:
+    本模块需要三个输入文件：
+    1.  **`Corrected_Control_Points.xlsx`**:
+        * Derived from Step 2 (Control Point Calculation).
+        * 源自第二步计算得到的控制点数据。
+    2.  **`Model_Calculation_Data.xlsx`**:
+        * Organized by Sheets (different $T_e$).
+        * **Col A**: Rigidity $D$ (Row 2) and X-axis coordinates (integers).
+        * **Col B+**: Load value (Row 2) and Flexural Deflection (Y-axis values).
+        * 分 Sheet 存储不同 $T_e$ 信息。A列为刚度 $D$ 及 X 轴整数点位；B列及之后为负载量及对应的空间挠曲量（Y轴）。
+    3.  **`Uplift_Flexure_Params.xlsx`**:
+        * Contains summary parameters: $T_e$, Load ($N$), Max Deflection ($W_{max}$), and Orogen Height ($H$).
+        * 包含参数汇总：$T_e$、负载量 $N$、二者联合解析的原点向下最大挠曲量 $W_{max}$ 及造山带隆升高度 $H$。
+
+### 5. Scatter Diagram Visualization (结果可视化)
+* **Description / 原理**:
+    Visualizes the optimal Goodness-of-Fit (GOF) results.
+    直观展示最优的拟合优度（GOF）结果。
+
+* **Usage / 用法**:
+    * **Input**: Organized by Sheets based on $T_e$.
+    * **Format**: In each sheet, input parameters in the following order: $T_e$, Shortening Rate, Load, Max Deflection ($W_{max}$), Paleo-height of Orogen ($H$), and GOF.
+    * 格式：按 $T_e$ 分为不同 Sheet。在每个 Sheet 中分别输入：$T_e$、缩短率、加载量、最大挠曲量、造山带古高度以及 GOF。
