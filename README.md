@@ -50,9 +50,9 @@ The modeling process consists of five main modules. Below are the details for me
 
 * **Code Reference & Modification / 代码来源与改进**:
     * **Origin**: Modified from **Jha, S., Harry, D.L., and Schutt, D.L. (2017)**, "Toolbox for Analysis of Flexural Isostasy (TAFI)".
-    * **Key Feature**: We changed the **`flexure_Callback.m`** module to enable **batch processing** of gridded data, significantly improving efficiency compared to single-profile analysis.
+    * **Key Feature**: We made changes to the **`flexure_Callback.m`** module to enable **batch processing** of gridded data, improving efficiency compared to single-profile analysis.
     * **来源**: 代码修改自 **Jha et al. (2017)** 的 TAFI 工具箱。
-    * **核心改进**: 我们更改了 **`flexure_Callback.m`** 模块，实现了网格化数据的**批量输入与输出**，显著提升了数据处理效率。
+    * **核心改进**: 我们对 **`flexure_Callback.m`** 模块进行了更改，实现了网格化数据的**批量输入与输出**，提升了数据处理效率。
 
 * **Usage / 用法**:
     * **Execution**: Run the `flexure_Callback.m` script.
