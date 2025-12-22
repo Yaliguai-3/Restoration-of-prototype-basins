@@ -43,3 +43,7 @@ The modeling process consists of four main modules:
 * **说明**：通过对比模拟弯曲量与观测数据来评估模型精度。
    采用 **`1 - RMSE`**（1减去均方根误差）作为拟合优度的评价标准。
 * **用法**：包含三个输入表格。第一个是控制点位置表格：Corrected_Control_Points.xlsx，其是从2. Control Point Calculation得来的；第二个表格是：Model_Calculation_Data.xlsx，它通过不同Sheet包含不同的Te信息，每一个单独的Sheet中第A列都是D其下一行对应其数值，再往下是对应的X轴点位，以整数形式展示，B列之后则是负载量，同样第二行是其数值，再往下是空间挠曲量（Y轴数值）；第三个表是：Uplift_Flexure_Params.xlsx，它展示的是Te、负载量N以及二者联合解析出来的原点向下挠曲量Wmax和H造山带的隆升高度。
+
+### 5. Scatter diagram (结果可视化)
+* **描述:**将最优GOF结果直观展示出来
+* * **用法**：按照Te分为不同Sheet，参照示例，在每一个Sheet中分别输入Te、缩短率、加载量、最大挠曲量、造山带古高度以及GOF
