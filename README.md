@@ -4,10 +4,10 @@
 ## Introduction (项目介绍)
 
 **English:**
-This project implements a 2D lithospheric flexural model constrained by stratigraphy and orogenic loads. Developed in **MATLAB**, it is designed to quantitatively reconstruct the prototype structure of a basin and reveal its geodynamic formation mechanism.
+This project involves a 2D lithospheric flexural model constrained by stratigraphy and orogenic loads. It is implemented in **MATLAB** and is designed to quantitatively reveal the prototype structure of the basin and its formation mechanism.
 
 **中文:**
-这是一个基于 **MATLAB** 实现的、受地层和造山运动约束的二维岩石圈挠曲模型。项目旨在通过定量模拟手段，揭示盆地的原始结构及其动力学形成机制。
+这是一个基于 **MATLAB** 实现的、受地层和造山运动约束的二维岩石圈挠曲模型。项目旨在通过定量模拟手段，揭示盆地的原始结构及其形成机制。
 
 ---
 
@@ -18,8 +18,8 @@ The modeling process consists of five main modules. Below are the details for me
 
 ### 1. Decompaction Correction (去压实矫正)
 * **Description / 原理**:
-    Restores the original thickness of sedimentary layers by removing the compaction effect based on lithological parameters (porosity, density).
-    基于岩性参数（孔隙度、密度）去除压实效应，恢复沉积层的原始厚度。
+    Restores the original thickness of sedimentary layers by removing the compaction effect based on lithological parameters.
+    基于岩性参数去除压实效应，恢复沉积层的原始厚度。
 
 * **Usage / 用法**:
     * **Input**: `input_data.xlsx`
@@ -48,13 +48,18 @@ The modeling process consists of five main modules. Below are the details for me
     Performs numerical simulation of lithospheric deflection under vertical loading based on the elastic plate theory.
     基于弹性板理论，对垂直负载下的岩石圈弯曲进行数值模拟。
 
-* **Code Reference / 代码来源**:
-    * *Modified from*: **Jha, S., Harry, D.L., and Schutt, D.L., 2017**, "Toolbox for Analysis of Flexural Isostasy (TAFI)—A MATLAB toolbox for modeling flexural deformation of the lithosphere", *Geosphere*, v. 13, no. 5, p. 1555–1565, doi:10.1130/GES01421.1.
+* **Code Reference & Modification / 代码来源与改进**:
+    * **Origin**: Modified from **Jha, S., Harry, D.L., and Schutt, D.L. (2017)**, "Toolbox for Analysis of Flexural Isostasy (TAFI)".
+    * **Key Feature**: We developed the **`flexure_Callback.m`** module to enable **batch processing** of gridded data, significantly improving efficiency compared to single-profile analysis.
+    * **来源**: 代码修改自 **Jha et al. (2017)** 的 TAFI 工具箱。
+    * **核心改进**: 我们开发了 **`flexure_Callback.m`** 模块，实现了网格化数据的**批量输入与输出**，显著提升了数据处理效率。
 
 * **Usage / 用法**:
+    * **Execution**: Run the `flexure_Callback.m` script.
+    * **运行**: 运行 `flexure_Callback.m` 脚本。
     * **Input**: `input.xlsx`
-        * Format: Requires only the Flexural Rigidity ($D$, corresponding to $T_e$) and Load Magnitude. This format allows for batch processing of gridded data.
-        * 格式：仅需输入挠曲刚度 $D$（对应 $T_e$）和加载量。通过这种形式实现对网格化数据的批量处理。
+        * Format: Requires only the Flexural Rigidity ($D$, corresponding to $T_e$) and Load Magnitude. This specific format supports the batch processing logic.
+        * 格式：仅需输入挠曲刚度 $D$（对应 $T_e$）和加载量。该格式专为配合批量处理逻辑而设计。
 
 ### 4. Goodness-of-Fit Calculation (拟合度计算)
 * **Description / 原理**:
@@ -64,14 +69,19 @@ The modeling process consists of five main modules. Below are the details for me
 * **Usage / 用法**:
     This module requires three input files:
     本模块需要三个输入文件：
+
     1.  **`Corrected_Control_Points.xlsx`**:
         * Derived from Step 2 (Control Point Calculation).
         * 源自第二步计算得到的控制点数据。
+
     2.  **`Model_Calculation_Data.xlsx`**:
-        * Organized by Sheets (different $T_e$).
+        * **Source**: This data is compiled from the results of **Step 3 (2D Flexural Simulation)**.
+        * **来源**: 该输入数据整理自**第3步（二维挠曲模拟）**的输出结果。
+        * **Structure**: Organized by Sheets (different $T_e$).
         * **Col A**: Rigidity $D$ (Row 2) and X-axis coordinates (integers).
         * **Col B+**: Load value (Row 2) and Flexural Deflection (Y-axis values).
-        * 分 Sheet 存储不同 $T_e$ 信息。A列为刚度 $D$ 及 X 轴整数点位；B列及之后为负载量及对应的空间挠曲量（Y轴）。
+        * **结构**: 分 Sheet 存储不同 $T_e$ 信息。A列为刚度 $D$ 及 X 轴整数点位；B列及之后为负载量及对应的空间挠曲量（Y轴）。
+
     3.  **`Uplift_Flexure_Params.xlsx`**:
         * Contains summary parameters: $T_e$, Load ($N$), Max Deflection ($W_{max}$), and Orogen Height ($H$).
         * 包含参数汇总：$T_e$、负载量 $N$、二者联合解析的原点向下最大挠曲量 $W_{max}$ 及造山带隆升高度 $H$。
