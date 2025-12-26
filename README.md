@@ -31,14 +31,14 @@ The modeling process consists of five main modules. Below are the details for me
 
 ### 2. Control Point Calculation (控制点位置计算)
 * **Description / 原理**:
-    Calculates the spatial position of basin geometries under different lithospheric flexural rigidities ($T_e$). It utilizes **drilling/well locations** as spatial control points, incorporating coordinates and decompacted thickness.
-    推算不同岩石圈挠曲刚度（$T_e$）下的盆地形态。采用**钻井位置**作为空间控制点，结合坐标与去压实后的地层厚度信息进行计算。
+    Calculates the spatial position of basin geometries under different lithospheric flexural rigidities (Te). It utilizes **drilling/well locations** as spatial control points, incorporating coordinates and decompacted thickness.
+    推算不同岩石圈挠曲刚度（Te）下的盆地形态。采用**钻井位置**作为空间控制点，结合坐标与去压实后的地层厚度信息进行计算。
 
 * **Usage / 用法**:
     * **Input**: `input_Control_Points.xlsx`
         * Format: Includes the spatial locations of 4 control wells and the depocenter.
-        * Operation: The code substitutes these into current spatial positions based on $T_e$. It automatically iterates through a $T_e$ range of **50-65 km** and a shortening rate range of **0-10%**.
-        * 格式：包含4口控制井及沉积中心的空间位置。代码会自动计算 $T_e$ 在 50-65 km 以及缩短率在 0-10% 范围内的数值。
+        * Operation: The code substitutes these into current spatial positions based on $T_e$. It automatically iterates through a Te range of **50-65 km** and a shortening rate range of **0-10%**.
+        * 格式：包含4口控制井及沉积中心的空间位置。代码会自动计算 Te 在 50-65 km 以及缩短率在 0-10% 范围内的数值。
     * **Output**: `Output_Calculated_Points.xlsx`
         * Results are output in floating-point format (non-integer) for precision.
         * 结果以浮点数形式（非整数）输出以保留精度。
@@ -59,8 +59,8 @@ The modeling process consists of five main modules. Below are the details for me
     * **Execution**: Run the `flexure_Callback.m` script.
     * **运行**: 运行 `flexure_Callback.m` 脚本。
     * **Input**: `input.xlsx`
-        * Format: Requires only the Flexural Rigidity ($D$, corresponding to $T_e$) and Load Magnitude. This specific format supports the batch processing logic.
-        * 格式：仅需输入挠曲刚度 $D$（对应 $T_e$）和加载量。该格式专为配合批量处理逻辑而设计。
+        * Format: Requires only the Flexural Rigidity (D, corresponding to Te) and Load Magnitude. This specific format supports the batch processing logic.
+        * 格式：仅需输入挠曲刚度 D（对应 Te）和加载量。该格式专为配合批量处理逻辑而设计。
 
 ### 4. Goodness-of-Fit Calculation (拟合度计算)
 * **Description / 原理**:
@@ -78,14 +78,14 @@ The modeling process consists of five main modules. Below are the details for me
     2.  **`Model_Calculation_Data.xlsx`**:
         * **Source**: This data is compiled from the results of **Step 3 (2D Flexural Simulation)**.
         * **来源**: 该输入数据整理自**第3步（二维挠曲模拟）**的输出结果。
-        * **Structure**: Organized by Sheets (different $T_e$).
-        * **Col A**: Rigidity $D$ (Row 2) and X-axis coordinates (integers).
+        * **Structure**: Organized by Sheets (different Te).
+        * **Col A**: Rigidity D (Row 2) and X-axis coordinates (integers).
         * **Col B+**: Load value (Row 2) and Flexural Deflection (Y-axis values).
-        * **结构**: 分 Sheet 存储不同 $T_e$ 信息。A列为刚度 $D$ 及 X 轴整数点位；B列及之后为负载量及对应的空间挠曲量（Y轴）。
+        * **结构**: 分 Sheet 存储不同 Te 信息。A列为刚度 D 及 X 轴整数点位；B列及之后为负载量及对应的空间挠曲量（Y轴）。
 
     3.  **`Uplift_Flexure_Params.xlsx`**:
-        * Contains summary parameters: $T_e$, Load ($N$), Max Deflection ($W_{max}$), and Orogen Height ($H$).
-        * 包含参数汇总：$T_e$、负载量 $N$、二者联合解析的原点向下最大挠曲量 $W_{max}$ 及造山带隆升高度 $H$。
+        * Contains summary parameters: Te, Load (N), Max Deflection (W{max}), and Orogen Height (H).
+        * 包含参数汇总：Te、负载量 N、二者联合解析的原点向下最大挠曲量 W{max} 及造山带隆升高度 H。
 
 ### 5. Scatter Diagram Visualization (结果可视化)
 * **Description / 原理**:
@@ -93,6 +93,6 @@ The modeling process consists of five main modules. Below are the details for me
     直观展示最优的拟合优度（GOF）结果。
 
 * **Usage / 用法**:
-    * **Input**: Organized by Sheets based on $T_e$.
-    * **Format**: In each sheet, input parameters in the following order: $T_e$, Shortening Rate, Load, Max Deflection ($W_{max}$), Paleo-height of Orogen ($H$), and GOF.
-    * 格式：按 $T_e$ 分为不同 Sheet。在每个 Sheet 中分别输入：$T_e$、缩短率、加载量、最大挠曲量、造山带古高度以及 GOF。
+    * **Input**: Organized by Sheets based on Te.
+    * **Format**: In each sheet, input parameters in the following order: Te, Shortening Rate, Load, Max Deflection ($W_{max}$), Paleo-height of Orogen ($H$), and GOF.
+    * 格式：按 Te 分为不同 Sheet。在每个 Sheet 中分别输入：Te、缩短率、加载量、最大挠曲量、造山带古高度以及 GOF。
