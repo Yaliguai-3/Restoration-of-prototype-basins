@@ -84,8 +84,8 @@ The modeling process consists of five main modules. Below are the details for me
         * **结构**: 分 Sheet 存储不同 Te 信息。A列为刚度 D 及 X 轴整数点位；B列及之后为负载量及对应的空间挠曲量（Y轴）。
 
     3.  **`Uplift_Flexure_Params.xlsx`**:
-        * Contains summary parameters: Te, Load (N), Max Deflection (W{max}), and Orogen Height (H).
-        * 包含参数汇总：Te、负载量 N、二者联合解析的原点向下最大挠曲量 W{max} 及造山带隆升高度 H。
+        * Contains summary parameters: Te, Load (N), Max Deflection ($W_{max}$), and Orogen Height (H).
+        * 包含参数汇总：Te、负载量 N、二者联合解析的原点向下最大挠曲量 $W_{max}$ 及造山带隆升高度 H。
 
 ### 5. Scatter Diagram Visualization (结果可视化)
 * **Description / 原理**:
